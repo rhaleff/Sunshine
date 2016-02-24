@@ -8,6 +8,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -50,6 +56,8 @@ public class MainActivity extends ActionBarActivity {
      */
     public static class PlaceholderFragment extends Fragment {
 
+        private ArrayAdapter<String> mPrevisaoAdapter;
+
         public PlaceholderFragment() {
         }
 
@@ -57,7 +65,30 @@ public class MainActivity extends ActionBarActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+            String[] previsaoArray = {
+                    "Today - Sunny - 88/63",
+                    "Tomorrow - Foggy - 70/40",
+                    "Weds - Cloudy - 72/63",
+                    "Thurs - Asteroids - 75/65",
+                    "Fri - Heavy Rain - 65/56",
+                    "Sat - HELP TRAPPED IN WEATHERSTATION - 60/51",
+                    "Sun - Sunny - 80/68"
+            };
+
+            List<String> semanaPrevisao = new ArrayList<String>(Arrays.asList(previsaoArray));
+
+            mPrevisaoAdapter = new ArrayAdapter<String>(
+                    getActivity(),
+                    R.layout.lista_previsao,
+                    R.id.lista_previsao_textwiew,
+                    semanaPrevisao);
+
+            ListView listView = (ListView) rootView.findViewById(R.id.listView_previsao);
+            listView.setAdapter(mPrevisaoAdapter);
             return rootView;
+
+
         }
     }
 }
